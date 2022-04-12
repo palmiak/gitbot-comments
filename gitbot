@@ -1,0 +1,7 @@
+#!/bin/bash
+PR_URL="${BUDDY_SCM_URL}/${BUDDY_EXECUTION_PULL_REQUEST_ID}";
+
+if [[ -z `gh pr view "$PR_URL" --json comments -q ".comments | .[].author | select(.login == \"${GH_USER}\") | length"` ]] || [[ ${MULTIPLE_COMMENTS} == true ]]
+then
+    gh pr comment "$PR_URL" --body "${GH_COMMENT}"
+fi
